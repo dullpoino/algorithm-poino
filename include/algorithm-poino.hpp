@@ -1,5 +1,6 @@
 ﻿#pragma once
-
+#include "BFS.hpp"
 #include "common.hpp"
-#include "Math/prime.hpp"
-#include "Math/mod.hpp"
+#include "Mod.hpp"
+#include "Prime.hpp"
+#include "LCM.hpp"
