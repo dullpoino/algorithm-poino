@@ -10,3 +10,4 @@
 #include "Mod.hpp"
 #include "Prime.hpp"
 #include "RabbitAndTurtle.hpp"
+#include "Trie.hpp"
