@@ -11,3 +11,4 @@
 #include "Prime.hpp"
 #include "RabbitAndTurtle.hpp"
 #include "Trie.hpp"
+#include "UnionFind.hpp"
