@@ -3,6 +3,8 @@
 #include "BinarySearch.hpp"
 #include "Bound.hpp"
 #include "common.hpp"
+#include "DFS.hpp"
+#include "DFS_iterative.hpp"
 #include "Mod.hpp"
 #include "Prime.hpp"
 #include "LCM.hpp"

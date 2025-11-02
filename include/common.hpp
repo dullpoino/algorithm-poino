@@ -10,22 +10,58 @@ typedef long long ll;
 typedef long double ld;
 
 ////////////////////////////////////////////////////////////////
-///// utildefine
+///// その他
 
 #define LF cout << "\n"
 
 #define all(name) (name).begin(), (name).end()
 #define rall(name) (name).rbegin(), (name).rend()
 
-#define YESNO(cond) { cout << (cond ? "YES" : "NO") << "\n"; }
-#define yesno(cond) { cout << (cond ? "yes" : "no") << "\n"; }
-#define YesNo(cond) { cout << (cond ? "Yes" : "No") << "\n"; }
-
 #define sz(name) (ll)(name).size()
 
-#define popb(qname) (qname).back(); (qname).pop_back()
-#define popf(qname) (qname).front(); (qname).pop_front()
-#define poppq(qname) (qname).top(); (qname).pop()
+inline void YESNO(bool cond) { cout << (cond ? "YES" : "NO") << "\n"; }
+inline void yesno(bool cond) { cout << (cond ? "yes" : "no") << "\n"; }
+inline void YesNo(bool cond) { cout << (cond ? "Yes" : "No") << "\n"; }
+inline void TF(bool cond, const string& t, const string& f) { cout << (cond ? t : f) << "\n"; }
+
+template<class T> inline void chmax(T& a, const T& b) { if (a < b) a = b; }
+template<class T> inline void chmin(T& a, const T& b) { if (a > b) a = b; }
+
+template<class T> using pqasc = priority_queue<T, vector<T>, greater<T>>;
+template<class T> using pqdesc = priority_queue<T, vector<T>, less<T>>;
+
+template<class T>
+T popb(deque<T>& q)
+{
+    T x = move(q.back());
+    q.pop_back();
+    return x;
+}
+template<class T>
+T popf(deque<T>& q)
+{
+    T x = move(q.front());
+    q.pop_front();
+    return x;
+}
+template<class T, class COMP>
+T poppq(priority_queue<T, vector<T>, COMP>& q)
+{
+    T x = move(q.top());
+    q.pop();
+    return x;
+}
+
+inline constexpr ll MODP = 1000000007;
+inline constexpr ll MODM = 998244353;
+inline constexpr ll INF = (1ll << 62);
+inline constexpr ld PI = 3.141592653589793238462643383279502884L;
+inline constexpr ll GSZ = 200009;
+
+inline constexpr ll dh[4] = { 0, 1, 0, -1 }; // RDLU(ESWN)
+inline constexpr ll dw[4] = { 1, 0, -1, 0 };
+inline constexpr ll dh8[8] = { 0, 1, 1, 1, 0, -1, -1, -1 }; // RDLU(ESWN)
+inline constexpr ll dw8[8] = { 1, 1, 0, -1, -1, -1, 0, 1 };
 
 ////////////////////////////////////////////////////////////////
 ///// ループ
@@ -40,85 +76,22 @@ typedef long double ld;
 #define rrepdr(lpcnt,name,lpsize,isize) for (ll lpcnt = ((ll)(lpsize)); lpcnt >= (ll)(name); lpcnt -= (isize))
 
 ////////////////////////////////////////////////////////////////
-///// 宣言
-
-#define vecd(type,name) vector<type> name
-#define vecs1(type,name,vsize) vector<type> name(vsize)
-#define vec(type,name,vsize,...) vector<type> name(vsize, __VA_ARGS__)
-#define vvecd(type,name) vector<vector<type> > name
-#define vvecs1(type,name,vsize) vector<vector<type> > name(vsize)
-#define vvecs2(type,name,vsize,vsize2) vector<vector<type> > name(vsize, vector<type>(vsize2))
-#define vvec(type,name,vsize,vsize2,...) vector<vector<type> > name(vsize, vector<type>(vsize2, __VA_ARGS__))
-#define vvvecd(type,name) vector<vector<vector<type> > > name
-#define vvvecs1(type,name,vsize) vector<vector<vector<type> > > name(vsize)
-#define vvvecs2(type,name,vsize,vsize2) vector<vector<vector<type> > > name(vsize, vector<vector<type> >(vsize2))
-#define vvvecs3(type,name,vsize,vsize2,vsize3) vector<vector<vector<type> > > name(vsize, vector<vector<type> >(vsize2, vector<type>(vsize3)))
-#define vvvec(type,name,vsize,vsize2,vsize3,...) vector<vector<vector<type> > > name(vsize, vector<vector<type> >(vsize2, vector<type>(vsize3, __VA_ARGS__)))
-
-#define vecp(type1,type2,name) vector<pair<type1, type2> > name
-#define vecps1(type1,type2,name,vsize) vector<pair<type1, type2> > name(vsize)
-
-#define vecm(type1,type2,name) vector<map<type1, type2> > name
-#define vecms1(type1,type2,name,vsize) vector<map<type1, type2> > name(vsize)
-
-////////////////////////////////////////////////////////////////
-///// 配列入力
-
-#define vecin(name,vsize) rep(lpcnt, 0, vsize) in(name[lpcnt])
-#define vvecin(name,vsize,vsize2) rep(lpcnt, 0, vsize) rep(lpcnt2, 0, vsize2) in(name[lpcnt][lpcnt2])
-#define vvvecin(name,vsize,vsize2,vsize3) rep(lpcnt, 0, vsize) rep(lpcnt2, 0, vsize2) rep(lpcnt3, 0, vsize3) in(name[lpcnt][lpcnt2][lpcnt3])
-
-#define vecpin(name,vsize) rep(i, 0, vsize) in(name[i].first, name[i].second)
-
-#define vecmin(name,vsize) rep(i, 0, vsize) in(name[i])
-
-////////////////////////////////////////////////////////////////
-///// 宣言＋入力
-
-#define vecdin(type,name,vsize) vecs1(type,name,vsize); vecin(name,vsize)
-#define vvecdin(type,name,vsize,vsize2) vvecs2(type,name,vsize,vsize2); vvecin(name,vsize,vsize2)
-#define vvvecdin(type,name,vsize,vsize2,vsize3) vvvecs3(type,name,vsize,vsize2,vsize3); vvvecin(name,vsize,vsize2,vsize3)
-
-#define vecpdin(type1,type2,name,vsize) vecps1(type1,type2,name,vsize); vecpin(name,vsize)
-
-#define vecmdin(type1,type2,name,vsize) vecms1(type1,type2,name,vsize); vecmin(name,vsize)
-
-#define din(type, name1) type name1; in(name1);
-#define din2(type, name1, name2) type name1, name2; in(name1, name2);
-#define din3(type, name1, name2, name3) type name1, name2, name3; in(name1, name2, name3);
-#define din4(type, name1, name2, name3, name4) type name1, name2, name3, name4; in(name1, name2, name3, name4);
-
-#define dind(type, name1) type name1; in(name1); --name1;
-#define din2d(type, name1, name2) type name1, name2; in(name1, name2); --name1; --name2;
-#define din3d(type, name1, name2, name3) type name1, name2, name3; in(name1, name2, name3); --name1; --name2; --name3;
-#define din4d(type, name1, name2, name3, name4) type name1, name2, name3, name4; in(name1, name2, name3, name4); --name1; --name2; --name3; --name4;
-
-////////////////////////////////////////////////////////////////
-///// 配列出力
-
-#define outV(name) rep(lpcnt,0,sz(name)) cout << name[lpcnt] << " "
-#define outVL(name) rep(lpcnt,0,sz(name)) cout << name[lpcnt] << "\n"
-#define outVV(name) rep(lpcnt,0,sz(name)) { rep(lpcnt2,0,sz(name[lpcnt])) cout << name[lpcnt][lpcnt2] << " "; LF; }
-#define outVVV(name) rep(lpcnt,0,sz(name)) { rep(lpcnt2,0,sz(name[lpcnt])) { rep(lpcnt3,0,sz(name[lpcnt][lpcnt2])) cout << name[lpcnt][lpcnt2][lpcnt3] << " "; LF; } LF; LF; }
-
-////////////////////////////////////////////////////////////////
 ///// 入力関数
 
 template <class... Args>
 void in(Args&... args) {
     ((cin >> args), ...);
 }
+template <class... Args>
+void ind(Args&... args) {
+    ((cin >> args, --args), ...);
+}
 
 ////////////////////////////////////////////////////////////////
 ///// 出力関数
 
-template <class Argf, class... Args>
-void out(Argf argf, Args... args) {
-    cout << argf;
-    ((cout << " " << args), ...);
-}
 template <class... Args>
-void outS(Args... args) {
+void out(Args... args) {
     ((cout << args << " "), ...);
 }
 template <class... Args>
@@ -126,14 +99,13 @@ void outT(Args... args) {
     ((cout << args), ...);
 }
 template <class Argf, class... Args>
-void outA(string str, Argf argf, Args... args) {
-    cout << argf;
-    ((cout << str << args), ...);
-}
-template <class Argf, class... Args>
-void outL(Argf argf, Args... args) {
+void outS(Argf argf, Args... args) {
     cout << argf;
     ((cout << " " << args), ...);
+}
+template <class... Args>
+void outL(Args... args) {
+    ((cout << args << " "), ...);
     LF;
 }
 template <class... Args>
@@ -142,53 +114,153 @@ void outTL(Args... args) {
     LF;
 }
 template <class Argf, class... Args>
-void outAL(string str, Argf argf, Args... args) {
+void outSL(Argf argf, Args... args) {
     cout << argf;
-    ((cout << str << args), ...);
-    LF;
-}
-template <class Argf, class... Args>
-void outP(Argf argf, Args... args) {
-    cout << setprecision(16) << argf;
-    ((cout << " " << args), ...);
-}
-template <class... Args>
-void outPT(Args... args) {
-    ((cout << setprecision(16) << args), ...);
-}
-template <class Argf, class... Args>
-void outPL(Argf argf, Args... args) {
-    cout << setprecision(16) << argf;
     ((cout << " " << args), ...);
     LF;
 }
 template <class... Args>
-void outPTL(Args... args) {
-    ((cout << setprecision(16) << args), ...);
-    LF;
+void outP(Args... args) {
+    ((cout << setprecision(16) << args << " "), ...);
 }
-template <class Argf, class... Args>
-void outPAL(string str, Argf argf, Args... args) {
-    cout << setprecision(16) << argf;
-    ((cout << str << args), ...);
+template <class... Args>
+void outPL(Args... args) {
+    ((cout << setprecision(16) << args << " "), ...);
     LF;
 }
 
 ////////////////////////////////////////////////////////////////
-///// その他
+///// 宣言
 
-template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
-template<class T> using pqasc = priority_queue<T, vector<T>, greater<T>>;
-template<class T> using pqdesc = priority_queue<T, vector<T>, less<T>>;
+template<class T> using VEC = vector<T>;
+template<class T> using VVEC = vector<vector<T>>;
+template<class T> using VVVEC = vector<vector<vector<T>>>;
+template<class T1, class T2> using PVEC = vector<pair<T1, T2>>;
 
-inline constexpr ll MODP = 1000000000ll + 7;
-inline constexpr ll MODM = 998244353;
-inline constexpr ll INF = 1000000000000000000ll + 9;
-inline constexpr ld PI = 3.141592653589793238462643383279502884L;
-inline constexpr ll GSZ = 200009;
+template<class T>
+VEC<T> vec(size_t s1, const T& val = T{})
+{
+    return VEC<T>(s1, val);
+}
+template<class T>
+VVEC<T> vvec(size_t s1, size_t s2, const T& val = T{})
+{
+    return VVEC<T>(s1, VEC<T>(s2, val));
+}
+template<class T>
+VVVEC<T> vvvec(size_t s1, size_t s2, size_t s3, const T& val = T{})
+{
+    return VVVEC<T>(s1, VVEC<T>(s2, VEC<T>(s3, val)));
+}
+template<class T1, class T2>
+PVEC<T1, T2> pvec(size_t s1)
+{
+    return PVEC<T1, T2>(s1);
+}
 
-inline constexpr ll dh[4] = { 0, 1, 0, -1 }; // RDLU(ESWN)
-inline constexpr ll dw[4] = { 1, 0, -1, 0 };
-inline constexpr ll dh8[8] = { 0, 1, 1, 1, 0, -1, -1, -1 }; // RDLU(ESWN)
-inline constexpr ll dw8[8] = { 1, 1, 0, -1, -1, -1, 0, 1 };
+////////////////////////////////////////////////////////////////
+///// 配列入力
+
+template<class T>
+void vin(VEC<T>& v)
+{
+    for (auto& x : v) in(x);
+}
+template<class T1, class T2>
+void vin2(VEC<T1>& v1, VEC<T2>& v2)
+{
+    rep(i, 0, sz(v1)) {
+        in(v1[i], v2[i]);
+    }
+}
+template<class T1, class T2, class T3>
+void vin3(VEC<T1>& v1, VEC<T2>& v2, VEC<T3>& v3)
+{
+    rep(i, 0, sz(v1)) {
+        in(v1[i], v2[i], v3[i]);
+    }
+}
+template<class T1, class T2, class T3, class T4>
+void vin4(VEC<T1>& v1, VEC<T2>& v2, VEC<T3>& v3, VEC<T4>& v4)
+{
+    rep(i, 0, sz(v1)) {
+        in(v1[i], v2[i], v3[i], v4[i]);
+    }
+}
+template<class T>
+void vvin(VVEC<T>& v)
+{
+    for (auto& x : v) for (auto& y : x) in(y);
+}
+template<class T>
+void vvvin(VVVEC<T>& v)
+{
+    for (auto& x : v) for (auto& y : x) for (auto& z : y) in(z);
+}
+template<class T1, class T2>
+void pvin(PVEC<T1, T2>& v)
+{
+    for (auto& x : v) in(x.first, x.second);
+}
+
+////////////////////////////////////////////////////////////////
+///// 宣言＋入力
+
+#define vecin(type,name,vsize) VEC<type> name = vec<type>(vsize); vin(name);
+#define vvecin(type,name,vsize1,vsize2) VVEC<type> name = vvec<type>(vsize1,vsize2); vvin(name);
+#define vvvecin(type,name,vsize1,vsize2,vsize3) VVVEC<type> name = vvvec<type>(vsize1,vsize2,vsize3); vvvin(name);
+#define pvecin(type1,type2,name,vsize) PVEC<type1,type2> name = pvec<type1,type2>(vsize); pvin(name);
+
+#define din(type, name1) type name1; in(name1);
+#define din2(type, name1, name2) type name1, name2; in(name1, name2);
+#define din3(type, name1, name2, name3) type name1, name2, name3; in(name1, name2, name3);
+#define din4(type, name1, name2, name3, name4) type name1, name2, name3, name4; in(name1, name2, name3, name4);
+
+#define dind(type, name1) type name1; ind(name1);
+#define din2d(type, name1, name2) type name1, name2; ind(name1, name2);
+#define din3d(type, name1, name2, name3) type name1, name2, name3; ind(name1, name2, name3);
+#define din4d(type, name1, name2, name3, name4) type name1, name2, name3, name4; ind(name1, name2, name3, name4);
+
+////////////////////////////////////////////////////////////////
+///// 配列出力
+
+template<class T>
+void outV(const VEC<T>& v)
+{
+    for (const auto& x : v) out(x);
+}
+template<class T>
+void outVL(const VEC<T>& v)
+{
+    for (const auto& x : v) outL(x);
+}
+template<class T>
+void outVV(const VVEC<T>& v)
+{
+    for (const auto& x : v) {
+        for (const auto& y : x) {
+            out(y);
+        }
+        LF;
+    }
+}
+template<class T>
+void outVVV(const VVVEC<T>& v)
+{
+    for (const auto& x : v) {
+        for (const auto& y : x) {
+            for (const auto& z : y) {
+                out(z);
+            }
+            LF;
+        }
+        LF;
+    }
+}
+template<class T1, class T2>
+void outPV(const PVEC<T1, T2>& v)
+{
+    for (const auto& x : v) outL(x.first, x.second);
+}
+
+////////////////////////////////////////////////////////////////
