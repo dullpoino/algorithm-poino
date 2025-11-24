@@ -10,5 +10,6 @@
 #include "Mod.hpp"
 #include "Prime.hpp"
 #include "RabbitAndTurtle.hpp"
+#include "RLE.hpp"
 #include "Trie.hpp"
 #include "UnionFind.hpp"
