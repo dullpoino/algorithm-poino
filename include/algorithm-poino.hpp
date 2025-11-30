@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "BFS.hpp"
 #include "BinarySearch.hpp"
+#include "BIT.hpp"
 #include "Bound.hpp"
 #include "common.hpp"
 #include "DFS.hpp"
@@ -11,5 +12,6 @@
 #include "Prime.hpp"
 #include "RabbitAndTurtle.hpp"
 #include "RLE.hpp"
+#include "SegmentTree.hpp"
 #include "Trie.hpp"
 #include "UnionFind.hpp"
