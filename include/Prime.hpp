@@ -17,13 +17,12 @@ inline bool trial_division(ll n)
     return true;
 }
 
-
 /**********************************************************
 エラトステネスの篩
 **********************************************************/
-inline vector<bool> sieve_eratosthenes(ll n)
+inline VEC<bool> sieve_eratosthenes(ll n)
 {
-    vector<bool> prime(n + 1, true);
+    VEC<bool> prime(n + 1, true);
 
     if (n >= 0) prime[0] = false;
     if (n >= 1) prime[1] = false;
@@ -38,19 +37,18 @@ inline vector<bool> sieve_eratosthenes(ll n)
     return prime;
 }
 
-
 /**********************************************************
 区間篩
 [l, r] をエラトステネスの篩で求める。
 **********************************************************/
-inline vector<bool> segmented_sieve(ll l, ll r)
+inline VEC<bool> segmented_sieve(ll l, ll r)
 {
     ll sq = (ll)sqrtl((ld)r);
     while ((sq + 1) * (sq + 1) <= r) ++sq;
     while (sq * sq > r) --sq;
 
-    vector<bool> small_prime = sieve_eratosthenes(sq);
-    vector<bool> prime(r - l + 1, true);
+    VEC<bool> small_prime = sieve_eratosthenes(sq);
+    VEC<bool> prime(r - l + 1, true);
 
     if (l == 0 || l == 1) prime[0] = false;
     if (l == 0 && r >= 1) prime[1] = false;

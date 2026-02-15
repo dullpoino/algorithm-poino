@@ -4,7 +4,8 @@
 /**********************************************************
 ランレングス圧縮
 **********************************************************/
-vector<pair<char, ll> > RLE(const string& S)
+
+vector<pair<char, ll>> RLE(string& S)
 {
     vector<pair<char, ll> > v;
     v.reserve(sz(S));

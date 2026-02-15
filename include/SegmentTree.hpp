@@ -1,18 +1,18 @@
 ﻿#pragma once
 #include "common.hpp"
 
-/**********************************************************
-セグメント木
-**********************************************************/
 // n は 1e6 以下を想定
 const ll SEGSZMAX = 1ll << 21;
 
-// 最小値セグメント木
+/**********************************************************
+最小値セグメント木
+**********************************************************/
+
 class SEGMIN {
 public:
     // 1-idx
     // segtree[1] : all
-    ll segtree[SEGSZMAX];
+    VL segtree;
 
     ll SEGSZ = 1;
     ll SEGINF = INF;
@@ -24,9 +24,7 @@ public:
             SEGSZ <<= 1;
         }
 
-        rep(i, 0, SEGSZMAX) {
-            segtree[i] = SEGINF;
-        }
+        segtree.assign(2 * SEGSZ, SEGINF);
     }
 
     // pos : 1-idx
@@ -68,12 +66,15 @@ public:
     }
 };
 
-// 最大値セグメント木
+/**********************************************************
+最大値セグメント木
+**********************************************************/
+
 class SEGMAX {
 public:
     // 1-idx
     // segtree[1] : all
-    ll segtree[SEGSZMAX];
+    VL segtree;
 
     ll SEGSZ = 1;
     ll SEGINF = -INF;
@@ -85,9 +86,7 @@ public:
             SEGSZ <<= 1;
         }
 
-        rep(i, 0, SEGSZMAX) {
-            segtree[i] = SEGINF;
-        }
+        segtree.assign(2 * SEGSZ, SEGINF);
     }
 
     // pos : 1-idx
@@ -129,12 +128,15 @@ public:
     }
 };
 
-// 総和セグメント木
+/**********************************************************
+総和セグメント木
+**********************************************************/
+
 class SEGSUM {
 public:
     // 1-idx
     // segtree[1] : all
-    ll segtree[SEGSZMAX];
+    VL segtree;
 
     ll SEGSZ = 1;
     ll SEGINF = 0;
@@ -146,9 +148,7 @@ public:
             SEGSZ <<= 1;
         }
 
-        rep(i, 0, SEGSZMAX) {
-            segtree[i] = SEGINF;
-        }
+        segtree.assign(2 * SEGSZ, SEGINF);
     }
 
     // pos : 1-idx
@@ -190,14 +190,17 @@ public:
     }
 };
 
-// 最小値遅延セグメント木
+/**********************************************************
+最小値遅延セグメント木
+**********************************************************/
+
 class LAZYSEGMIN {
 public:
     // 1-idx
     // segtree[1] : all
-    ll segtree[SEGSZMAX];
-    ll lazyvalue[SEGSZMAX];
-    bool lazyflag[SEGSZMAX];
+    VL segtree;
+    VL lazyvalue;
+    VEC<bool> lazyflag;
 
     ll SEGSZ = 1;
     ll SEGINF = INF;
@@ -209,10 +212,9 @@ public:
             SEGSZ <<= 1;
         }
 
-        rep(i, 0, SEGSZMAX) {
-            segtree[i] = SEGINF;
-            lazyflag[i] = false;
-        }
+        segtree.assign(2 * SEGSZ, SEGINF);
+        lazyvalue.assign(2 * SEGSZ, 0);
+        lazyflag.assign(2 * SEGSZ, false);
     }
 
     void lazy_update(ll cur)
@@ -291,14 +293,17 @@ public:
     }
 };
 
-// 最大値遅延セグメント木
+/**********************************************************
+最大値遅延セグメント木
+**********************************************************/
+
 class LAZYSEGMAX {
 public:
     // 1-idx
     // segtree[1] : all
-    ll segtree[SEGSZMAX];
-    ll lazyvalue[SEGSZMAX];
-    bool lazyflag[SEGSZMAX];
+    VL segtree;
+    VL lazyvalue;
+    VEC<bool> lazyflag;
 
     ll SEGSZ = 1;
     ll SEGINF = -INF;
@@ -310,10 +315,9 @@ public:
             SEGSZ <<= 1;
         }
 
-        rep(i, 0, SEGSZMAX) {
-            segtree[i] = SEGINF;
-            lazyflag[i] = false;
-        }
+        segtree.assign(2 * SEGSZ, SEGINF);
+        lazyvalue.assign(2 * SEGSZ, 0);
+        lazyflag.assign(2 * SEGSZ, false);
     }
 
     void lazy_update(ll cur)
@@ -392,14 +396,17 @@ public:
     }
 };
 
-// 総和遅延セグメント木
+/**********************************************************
+総和遅延セグメント木
+**********************************************************/
+
 class LAZYSEGSUM {
 public:
     // 1-idx
     // segtree[1] : all
-    ll segtree[SEGSZMAX];
-    ll lazyvalue[SEGSZMAX];
-    bool lazyflag[SEGSZMAX];
+    VL segtree;
+    VL lazyvalue;
+    VEC<bool> lazyflag;
 
     ll SEGSZ = 1;
     ll SEGINF = 0;
@@ -411,10 +418,9 @@ public:
             SEGSZ <<= 1;
         }
 
-        rep(i, 0, SEGSZMAX) {
-            segtree[i] = SEGINF;
-            lazyflag[i] = false;
-        }
+        segtree.assign(2 * SEGSZ, SEGINF);
+        lazyvalue.assign(2 * SEGSZ, 0);
+        lazyflag.assign(2 * SEGSZ, false);
     }
 
     void lazy_update(ll cur, ll lts, ll rts)

@@ -4,7 +4,8 @@
 /**********************************************************
 DFS 再帰版
 **********************************************************/
-ll dfs(vector<vector<ll> >& G, vector<bool>& visited, ll cur)
+
+ll dfs(VVL& G, VEC<bool>& visited, ll cur)
 {
     ll ret = 1;
 

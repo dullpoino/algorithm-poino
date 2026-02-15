@@ -4,7 +4,8 @@
 /**********************************************************
 DFS 非再帰版
 **********************************************************/
-void dfs_iterative(vector<vector<ll> >&G, vector<bool> &visited, ll start)
+
+void dfs_iterative(VVL&G, VEC<bool> &visited, ll start)
 {
     deque<ll> q;
     q.push_back(start);

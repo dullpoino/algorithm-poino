@@ -4,9 +4,10 @@
 /**********************************************************
 Binary Index Tree (フェニック木)
 **********************************************************/
+
 struct BIT {
     ll n;
-    VEC<ll> bit;
+    VL bit;
     BIT(ll n_) : n(n_), bit(n_ + 1, 0ll) {}
 
     // j : 1-idx
@@ -40,7 +41,7 @@ struct BIT {
 struct BITMOD {
     ll n;
     ll m = MODM;
-    VEC<ll> bit;
+    VL bit;
     BITMOD(ll n_) : n(n_), bit(n_ + 1, 0ll) {}
 
     // j : 1-idx

@@ -5,7 +5,8 @@
 フロイドの循環検出アルゴリズム
 G : Functional Graph
 **********************************************************/
-ll RabbitAndTurtle(vector<ll>& G, ll start)
+
+ll RabbitAndTurtle(VL& G, ll start)
 {
 	ll rabbit = G[G[start]], turtle = G[start];
 

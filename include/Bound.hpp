@@ -2,91 +2,125 @@
 #include "common.hpp"
 
 /**********************************************************
-Bound
+Bound (vector)
 **********************************************************/
-const ll ITRINF = -1;
 
-pair<vector<ll>::iterator, ll> boundLTV(vector<ll>& v, ll key)
+template<class T, class COMP = less<>>
+pair<typename VEC<T>::iterator, optional<T>>
+boundLT(VEC<T>& v, T& key, COMP comp = COMP())
 {
-    auto it = lower_bound(all(v), key);
-    it == v.begin() ? (it = v.end()) : --it;
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = lower_bound(all(v), key, comp);
+    if (it == v.begin()) return { v.end(), nullopt };
+    --it;
+    return { it, *it };
 }
-ll countLTV(vector<ll>& v, ll key)
-{
-    return distance(v.begin(), lower_bound(all(v), key));
+template <class T, class COMP = less<>>
+ll countLT(VEC<T>& v, T& key, COMP comp = COMP()) {
+    auto it = lower_bound(all(v), key, comp);
+    return distance(v.begin(), it);
 }
-pair<set<ll>::iterator, ll> boundLTS(set<ll>& v, ll key)
+
+template<class T, class COMP = less<>>
+pair<typename VEC<T>::iterator, optional<T>>
+boundLE(VEC<T>& v, T& key, COMP comp = COMP())
 {
-    auto it = v.lower_bound(key);
-    it == v.begin() ? (it = v.end()) : --it;
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = upper_bound(all(v), key, comp);
+    if (it == v.begin()) return { v.end(), nullopt };
+    --it;
+    return { it, *it };
 }
-ll countLTS(set<ll>& v, ll key)
-{
-    return distance(v.begin(), v.lower_bound(key));
+template <class T, class COMP = less<>>
+ll countLE(VEC<T>& v, T& key, COMP comp = COMP()) {
+    auto it = upper_bound(all(v), key, comp);
+    return distance(v.begin(), it);
 }
-pair<vector<ll>::iterator, ll> boundLEV(vector<ll>& v, ll key)
+
+template<class T, class COMP = less<>>
+pair<typename VEC<T>::iterator, optional<T>>
+boundGT(VEC<T>& v, T& key, COMP comp = COMP())
 {
-    auto it = upper_bound(all(v), key);
-    it == v.begin() ? (it = v.end()) : --it;
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = upper_bound(all(v), key, comp);
+    if (it == v.end()) return { v.end(), nullopt };
+    return { it, *it };
 }
-ll countLEV(vector<ll>& v, ll key)
-{
-    return distance(v.begin(), upper_bound(all(v), key));
+template <class T, class COMP = less<>>
+ll countGT(VEC<T>& v, T& key, COMP comp = COMP()) {
+    auto it = upper_bound(all(v), key, comp);
+    return distance(it, v.end());
 }
-pair<set<ll>::iterator, ll> boundLES(set<ll>& v, ll key)
+
+template<class T, class COMP = less<>>
+pair<typename VEC<T>::iterator, optional<T>>
+boundGE(VEC<T>& v, T& key, COMP comp = COMP())
 {
-    auto it = v.upper_bound(key);
-    it == v.begin() ? (it = v.end()) : --it;
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = lower_bound(all(v), key, comp);
+    if (it == v.end()) return { v.end(), nullopt };
+    return { it, *it };
 }
-ll countLES(set<ll>& v, ll key)
-{
-    return distance(v.begin(), v.upper_bound(key));
+template <class T, class COMP = less<>>
+ll countGE(VEC<T>& v, T& key, COMP comp = COMP()) {
+    auto it = lower_bound(all(v), key, comp);
+    return distance(it, v.end());
 }
-pair<vector<ll>::iterator, ll> boundGTV(vector<ll>& v, ll key)
+
+/**********************************************************
+Bound (set)
+**********************************************************/
+
+template<class T>
+pair<typename set<T>::iterator, optional<T>>
+boundLT(set<T>& s, T& key)
 {
-    auto it = upper_bound(all(v), key);
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = s.lower_bound(key);
+    if (it == s.begin()) return { s.end(), nullopt };
+    --it;
+    return { it, *it };
 }
-ll countGTV(vector<ll>& v, ll key)
-{
-    return distance(upper_bound(all(v), key), v.end());
+template <class T>
+ll countLT(set<T>& s, T& key) {
+    auto it = s.lower_bound(key);
+    return distance(s.begin(), it);
 }
-pair<set<ll>::iterator, ll> boundGTS(set<ll>& v, ll key)
+
+template<class T>
+pair<typename set<T>::iterator, optional<T>>
+boundLE(set<T>& s, T& key)
 {
-    auto it = v.upper_bound(key);
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = s.upper_bound(key);
+    if (it == s.begin()) return { s.end(), nullopt };
+    --it;
+    return { it, *it };
 }
-ll countGTS(set<ll>& v, ll key)
-{
-    return distance(v.upper_bound(key), v.end());
+template <class T>
+ll countLE(set<T>& s, T& key) {
+    auto it = s.upper_bound(key);
+    return distance(s.begin(), it);
 }
-pair<vector<ll>::iterator, ll> boundGEV(vector<ll>& v, ll key)
+
+template<class T>
+pair<typename set<T>::iterator, optional<T>>
+boundGT(set<T>& s, T& key)
 {
-    auto it = lower_bound(all(v), key);
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = s.upper_bound(key);
+    if (it == s.end()) return { s.end(), nullopt };
+    return { it, *it };
 }
-ll countGEV(vector<ll>& v, ll key)
-{
-    return distance(lower_bound(all(v), key), v.end());
+template <class T>
+ll countGT(set<T>& s, T& key) {
+    auto it = s.upper_bound(key);
+    return distance(it, s.end());
 }
-pair<set<ll>::iterator, ll> boundGES(set<ll>& v, ll key)
+
+template<class T>
+pair<typename set<T>::iterator, optional<T>>
+boundGE(set<T>& s, T& key)
 {
-    auto it = v.lower_bound(key);
-    auto val = (it != v.end() ? *it : ITRINF);
-    return { it, val };
+    auto it = s.lower_bound(key);
+    if (it == s.end()) return { s.end(), nullopt };
+    return { it, *it };
 }
-ll countGES(set<ll>& v, ll key)
-{
-    return distance(v.lower_bound(key), v.end());
+template <class T>
+ll countGE(set<T>& s, T& key) {
+    auto it = s.lower_bound(key);
+    return distance(it, s.end());
 }

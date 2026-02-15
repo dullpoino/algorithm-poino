@@ -4,10 +4,10 @@
 /**********************************************************
 BFS
 **********************************************************/
-void bfs(vector<vector<ll> > &G, ll start)
+
+void bfs(VVL &G, VEC<bool>& visited, ll start)
 {
     deque<ll> q;
-    vector<ll> visited(sz(G));
 
     q.push_back(start);
     visited[start] = 1;

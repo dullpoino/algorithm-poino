@@ -4,11 +4,12 @@
 /**********************************************************
 ダイクストラ
 **********************************************************/
-void Dijkstra(vector<vector<pair<ll, ll> > >& G, ll N, ll start)
+
+void Dijkstra(VVPLL& G, ll N, ll start)
 {
-	vector<bool> kakutei(N, false);
-	vector<ll> cur(N, INF);
-	pqasc<pair<ll, ll> > q;
+	VEC<bool> kakutei(N, false);
+	VL cur(N, INF);
+	pqasc<pair<ll, ll>> q;
 
 	cur[start] = 0;
 	q.push({ cur[start], start });
