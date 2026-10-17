@@ -13,5 +13,5 @@ target_include_directories(Math
     $<INSTALL_INTERFACE:include>
 )
 
-add_executable(example Example/main.cpp)
+add_executable(example Main/main.cpp)
 target_link_libraries(example PRIVATE Math)
