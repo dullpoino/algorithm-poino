@@ -56,6 +56,8 @@
 #include "range_query/segment_tree_max.hpp"
 #include "range_query/segment_tree_min.hpp"
 #include "range_query/segment_tree_sum.hpp"
+#include "math/cross.hpp"
+#include "math/angularsort.hpp"
 
 // Alternative to depth_first_search_postorder.hpp (same dfs signature).
 // #include "graph/traversal/depth_first_search_preorder.hpp"
