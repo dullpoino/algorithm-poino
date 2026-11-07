@@ -116,6 +116,22 @@ template <class... T> void ind(T &...x)
 ////////////////////////////////////////////////////////////////
 ///// 出力関数
 
+#ifdef _DEBUG
+#define GREEN "\x1b[32m"
+#define RESET "\x1b[0m"
+#else
+#define GREEN ""
+#define RESET ""
+#endif
+
+//template <class... T> void out(const T &...x)
+//{
+//    ((cout << GREEN << x << RESET << ' '), ...);
+//}
+//template <class... T> void outT(const T &...x)
+//{
+//    ((cout << GREEN << x << RESET), ...);
+//}
 template <class... T> void out(const T &...x)
 {
     ((cout << x << ' '), ...);
